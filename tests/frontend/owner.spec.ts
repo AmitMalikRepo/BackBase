@@ -11,7 +11,7 @@ test.describe("Owner functionality", () => {
     await homePage.goTo();
   });
 
-  test("Search and view an existing owner with the first name", async ({ page }) => {
+  test("Search and view an existing owner with the last name", async ({ page }) => {
     const ownerPage = new OwnerPage(page);
 
     await test.step('When I navigate to All Owners', async () => {
@@ -19,19 +19,23 @@ test.describe("Owner functionality", () => {
     });
 
     await test.step('And I search for an existing owner', async () => {
-      await ownerPage.searchOwner.fill(ownerData.searchOwnerName);
+      await ownerPage.searchOwner.fill(ownerData.searchOwner.lastName);
     });
 
     await test.step('Then I should see the owner in the search results', async () => {
-      await expect(page.getByText(ownerData.searchOwnerName)).toBeVisible();
+      await expect(page.getByText(ownerData.searchOwner.lastName)).toBeVisible();
+      await expect(page.getByText(ownerData.searchOwner.firstName)).toBeVisible();
     });
 
     await test.step('And I click on the owner link', async () => {
-      await ownerPage.clickOnLink(ownerData.searchOwnerName);
+      await ownerPage.clickOnLink(ownerData.searchOwner.firstName);
     });
 
     await test.step('Then I should see the owner details page', async () => {
-      await expect(page.getByText(ownerData.searchOwnerName)).toBeVisible();
+      await expect(page.getByText(ownerData.searchOwner.firstName)).toBeVisible();
+      await expect(page.getByText(ownerData.searchOwner.lastName)).toBeVisible();
+      await expect(page.getByText(ownerData.searchOwner.address)).toBeVisible();
+      await expect(page.getByText(ownerData.searchOwner.city)).toBeVisible();
     });
   });
 
@@ -44,11 +48,11 @@ test.describe("Owner functionality", () => {
     });
 
     await test.step('And I search for an existing owner', async () => {
-      await ownerPage.searchOwner.fill(ownerData.searchOwnerName);
+      await ownerPage.searchOwner.fill(ownerData.searchOwner.firstName);
     });
 
     await test.step('And I click on the owner link', async () => {
-      await ownerPage.clickOnLink(ownerData.searchOwnerName);
+      await ownerPage.clickOnLink(ownerData.searchOwner.firstName);
     });
 
     await test.step('And I add a new pet to the owner', async () => {
@@ -62,7 +66,7 @@ test.describe("Owner functionality", () => {
     });
   });
 
-  test("Register a new owner", async ({ page }) => {
+  test("Add a new owner", async ({ page }) => {
     const ownerPage = new OwnerPage(page);
     const uniqueOwner = getUniqueNames();
 

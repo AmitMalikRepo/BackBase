@@ -27,5 +27,11 @@
     "city": "Amsterdam",
     "telephone": "abc"
   },
-  "searchOwnerName": "David"
+  "searchOwner": {
+    "firstName": "David",
+    "lastName": "Schroeder",
+    "address": "2749 Blackhawk Trail",
+    "city": "Madison",
+    "telephone": "6085559435"
+  }
 }
