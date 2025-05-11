@@ -1,4 +1,24 @@
+# version: '3'
+# services:
+#   spring-petclinic:
+#     image: arey/springboot-petclinic
+#     container_name: spring-petclinic
+#     ports:
+#       - "8080:8080"
+#     environment:
+#       - SPRING_PROFILES_ACTIVE=hsqldb,prod
+#   playwright-tests:
+#     image: mcr.microsoft.com/playwright:v1.52.0-jammy   
+#     container_name: playwright-tests
+#     volumes:
+#       - .:/mnt/app
+#     working_dir: /mnt/app
+#     depends_on:
+#       - spring-petclinic
+#     command: npx playwright test
+
 version: '3'
+
 services:
   spring-petclinic:
     image: arey/springboot-petclinic
@@ -7,3 +27,23 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=hsqldb,prod
+    # healthcheck:
+    #   test: ["CMD-SHELL", "wget --spider -q http://spring-petclinic:8080/ || exit 1"]
+    #   interval: 10s
+    #   timeout: 10s
+    #   retries: 6
+    #   start_period: 60s
+
+  # test-runner:
+  #   image: mcr.microsoft.com/playwright:v1.52.0-jammy
+  #   container_name: playwright-tests
+  #   depends_on:
+  #     spring-petclinic:
+  #       condition: service_healthy
+  #   working_dir: /tests
+  #   volumes:
+  #   - ./:/tests
+  #   entrypoint: ["sh", "-c"]
+  #   environment:
+  #   - BASE_URL=http://spring-petclinic:8080/
+  #   command: ["npx playwright test"]

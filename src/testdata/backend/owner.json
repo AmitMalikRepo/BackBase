@@ -1,0 +1,37 @@
+{
+  "validOwner": {
+    "firstName": "Test George",
+    "lastName": "Franklin 3",
+    "address": "110 W. Liberty St.",
+    "city": "Madison",
+    "telephone": "6085551023"
+  },
+  "updateOwner": {
+    "firstName": "George",
+    "lastName": "Franklin Updated",
+    "address": "110 ABC",
+    "city": "Amsterdam",
+    "telephone": "6085551023"
+  },
+  "inValidOwner": {
+    "firstName": "Test George",
+    "lastName": "",
+    "address": "110 W. Liberty St.",
+    "city": "Madison",
+    "telephone": "6085551023"
+  },
+  "inValidUpdateOwner": {
+    "firstName": "Test George",
+    "lastName": "Franklin Updated",
+    "address": "110 ABC",
+    "city": "Amsterdam",
+    "telephone": "abc"
+  },
+  "getOwner": {
+    "firstName": "Betty",
+    "lastName": "Davis",
+    "address": "638 Cardinal Ave.",
+    "city": "Sun Prairie",
+    "telephone": "6085551749"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "petDetails": {
+    "name": "Jewel",
+    "birthDate": "2010-03-07",
+    "typeId": "2"
+  },
+  "updatePetDetails": {
+    "name": "Miu Miu",
+    "id": "8",
+    "birthDate": "2024-01-07",
+    "typeId": "1"
+  }
+}
