@@ -9,8 +9,8 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }]],
   use: {
     headless: process.env.CI ? true : false,
-    baseURL: 'http://localhost:8080/', // URL for your spring-petclinic
-    trace: 'on-first-retry',  // Collect trace when retrying the failed test.
+    baseURL: 'http://localhost:8080/',
+    trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     viewport: { width: 1440, height: 1080 },
     video: 'on',

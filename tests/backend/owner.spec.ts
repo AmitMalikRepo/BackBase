@@ -9,7 +9,7 @@ test.describe('Pet Owners API', () => {
   });
 
   test("Get a pet owner by ID", async ({ request }) => {
-    const getOwnerResponse = await ownerAPIHelper.getOwner(request, 2);
+    const getOwnerResponse = await ownerAPIHelper.getOwner(request, ownerData.ownerId.id2);
     expect(getOwnerResponse.status()).toBe(200);
 
     const ownerResponseBody = await getOwnerResponse.json();
@@ -19,7 +19,7 @@ test.describe('Pet Owners API', () => {
   });
 
   test("Update a pet owner details successfully", async ({ request }) => {
-    const updateOwnerResponse = await ownerAPIHelper.updateOwner(request, 1, ownerData.updateOwner);
+    const updateOwnerResponse = await ownerAPIHelper.updateOwner(request, ownerData.ownerId.id1, ownerData.updateOwner);
     expect(updateOwnerResponse.status()).toBe(200);
 
     const ownerResponseBody = await updateOwnerResponse.json();
@@ -56,7 +56,7 @@ test.describe('Pet Owners Negative API tests', () => {
   });
 
   test("Fail to update owner when telephone is non-numeric", async ({ request }) => {
-    const updateOwnerResponse = await ownerAPIHelper.updateOwner(request, 1, ownerData.inValidUpdateOwner);
+    const updateOwnerResponse = await ownerAPIHelper.updateOwner(request, ownerData.ownerId.id1, ownerData.inValidUpdateOwner);
     expect(updateOwnerResponse.status()).toBe(400);
 
     const ownerResponseBody = await updateOwnerResponse.json();

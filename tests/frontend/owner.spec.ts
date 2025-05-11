@@ -11,24 +11,6 @@ test.describe("Owner functionality", () => {
     await homePage.goTo();
   });
 
-  test("Register a new owner", async ({ page }) => {
-    const ownerPage = new OwnerPage(page);
-    const uniqueOwner = getUniqueNames();
-
-    await test.step('When I navigate to Add Owner page', async () => {
-      await ownerPage.navigateToAddOwner();
-    });
-
-    await test.step('And I add a new owner', async () => {
-      await ownerPage.addOwner(uniqueOwner);
-    });
-
-    await test.step('Then I should see the new owner displayed on owners page', async () => {
-      await expect(page.getByText(uniqueOwner.firstName)).toBeVisible();
-      await expect(page.getByText(uniqueOwner.lastName)).toBeVisible();
-    });
-  });
-
   test("Search and view an existing owner with the first name", async ({ page }) => {
     const ownerPage = new OwnerPage(page);
 
@@ -77,6 +59,24 @@ test.describe("Owner functionality", () => {
     await test.step('Then I should see the new pet added to the owner profile', async () => {
       await expect(page.getByText(uniquePet.name)).toBeAttached();
       await expect(page.getByText(uniquePet.name)).toBeVisible();
+    });
+  });
+
+  test("Register a new owner", async ({ page }) => {
+    const ownerPage = new OwnerPage(page);
+    const uniqueOwner = getUniqueNames();
+
+    await test.step('When I navigate to Add Owner page', async () => {
+      await ownerPage.navigateToAddOwner();
+    });
+
+    await test.step('And I add a new owner', async () => {
+      await ownerPage.addOwner(uniqueOwner);
+    });
+
+    await test.step('Then I should see the new owner displayed on owners page', async () => {
+      await expect(page.getByText(uniqueOwner.firstName)).toBeVisible();
+      await expect(page.getByText(uniqueOwner.lastName)).toBeVisible();
     });
   });
 });
