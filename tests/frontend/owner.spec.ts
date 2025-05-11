@@ -11,7 +11,7 @@ test.describe("Owner functionality", () => {
     await homePage.goTo();
   });
 
-  test("Search and view an existing owner with the last name", async ({ page }) => {
+  test("Search and view an existing owner by last name", async ({ page }) => {
     const ownerPage = new OwnerPage(page);
 
     await test.step('When I navigate to All Owners', async () => {
@@ -31,7 +31,7 @@ test.describe("Owner functionality", () => {
       await ownerPage.clickOnLink(ownerData.searchOwner.firstName);
     });
 
-    await test.step('Then I should see the owner details page', async () => {
+    await test.step('Then I should see the correct owner details displayed on the page', async () => {
       await expect(page.getByText(ownerData.searchOwner.firstName)).toBeVisible();
       await expect(page.getByText(ownerData.searchOwner.lastName)).toBeVisible();
       await expect(page.getByText(ownerData.searchOwner.address)).toBeVisible();
@@ -81,6 +81,25 @@ test.describe("Owner functionality", () => {
     await test.step('Then I should see the new owner displayed on owners page', async () => {
       await expect(page.getByText(uniqueOwner.firstName)).toBeVisible();
       await expect(page.getByText(uniqueOwner.lastName)).toBeVisible();
+    });
+  });
+
+  // Negative Test
+
+  test("Search for a non-existent owner should show no results", async ({ page }) => {
+    const ownerPage = new OwnerPage(page);
+  
+    await test.step('When I navigate to All Owners', async () => {
+      await ownerPage.navigateToAllOwners();
+    });
+  
+    await test.step('And I search using a non-existent last name', async () => {
+      await ownerPage.searchOwner.fill("NonExistOwner");
+    });
+  
+    await test.step('Then I should see no owners listed in the results', async () => {
+      const ownerRow = page.locator('table tbody tr');
+      await expect(ownerRow).toHaveCount(0);
     });
   });
 });
