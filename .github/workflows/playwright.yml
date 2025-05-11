@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:  
-    name: Build & Install
+    name: Build
     runs-on: ubuntu-latest
     timeout-minutes: 30 
     steps:
@@ -16,14 +16,26 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-
       - name: Install dependencies
         run: npm install
-
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-        
       - name: Cache node_modules and Playwright browsers
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }} 
+
+  frontend-tests:  
+    name: FE Tests
+    timeout-minutes: 30 
+    runs-on: ubuntu-latest
+    needs: Build  
+    steps:
+      - uses: actions/checkout@v4  
+      - name: Restore Cached Dependencies
         uses: actions/cache@v3
         with:
           path: |
@@ -49,22 +61,7 @@ jobs:
             fi
             echo "Retrying in 10s..."
             sleep 10
-          done      
-
-  frontend-tests:  
-    name: FE Tests
-    timeout-minutes: 30 
-    runs-on: ubuntu-latest
-    needs: Build  
-    steps:
-      - uses: actions/checkout@v4  
-      - name: Restore Cached Dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          done  
 
       - name: Run Frontend Tests  
         run: npx playwright test tests/frontend
@@ -89,6 +86,26 @@ jobs:
             node_modules
             ~/.cache/ms-playwright
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+      - name: Install Docker Compose CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Start Spring PetClinic App
+        run: docker-compose up -d spring-petclinic      
+
+      - name: Wait for Spring PetClinic to be ready
+        run: |
+          echo "Waiting for http://localhost:8080 to be ready..."
+          for i in {1..60}; do
+            if curl -sSf http://localhost:8080 > /dev/null; then
+              echo "App is up!"
+              break
+            fi
+            echo "Retrying in 10s..."
+            sleep 10
+          done  
 
       - name: Run Backend Tests 
         run: npx playwright test tests/backend
