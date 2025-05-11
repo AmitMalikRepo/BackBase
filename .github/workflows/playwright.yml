@@ -88,6 +88,14 @@ jobs:
             ~/.cache/ms-playwright
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
+      - name: Install Docker Compose CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Start Spring PetClinic App
+        run: docker-compose up -d spring-petclinic      
+
       - name: Wait for Spring PetClinic to be ready
         run: |
           echo "Waiting for http://localhost:8080 to be ready..."
