@@ -43,6 +43,12 @@ jobs:
             ~/.cache/ms-playwright
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
+      - name: Install Docker Compose CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+
       - name: Start Spring PetClinic App
         run: docker-compose up -d spring-petclinic
 
@@ -93,7 +99,7 @@ jobs:
             echo "Retrying in 10s..."
             sleep 10
           done  
-              
+
       - name: Run Backend Tests 
         run: npx playwright test tests/backend
       - uses: actions/upload-artifact@v4
