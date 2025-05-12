@@ -5,7 +5,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  workers: process.env.CI ? 1 : 1,
+  workers: process.env.CI ? 2 : 1,
   reporter: [['html', { open: 'never' }]],
   use: {
     headless: process.env.CI ? true : false,

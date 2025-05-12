@@ -1,22 +1,27 @@
 ## Test Automation Framework for Spring Petclinic
+
 This is a test automation framework built using Playwright and TypeScript. It focuses on testing both frontend and backend functionalities of the spring petclinic application. The framework automates key features such as search functionality, adding new owners and thier pets, updating owner details to ensure the web app performs reliably under different conditions and also on the backend side, it includes comprehensive API testing with CRUD operations to ensure reliability, correctness, and consistency of the system under various conditions.
 
 ## Table of Contents
+
 1. Overview
 2. Features
 3. Project Structure
 4. Test Scripts
 5. Installation
 6. Running Tests
-7. Playwright Configuration
-8. CI Integration
+7. Accessing Test Reports
+8. Playwright Configuration
+9. CI Integration
 
 ### Overview
+
 This repository contains the automated test framework developed for testing spring petclininc application, a leading real estate platform. The framework is designed to ensure seamless functionality of the website's core features, from frontend UI tests to backend API validations.
 
 The framework is fully integrated with GitHub Actions, a CI/CD pipeline tool that automates test execution on every code push or pull request, ensuring the quality and stability of the application.
 
-### Features 
+### Features
+
 - End-to-End Testing: Test complete flows such as search, add new owner or pet, and navigation across pages.
 - Parallel Execution: Maximize performance with fully parallelized tests.
 - Detailed Reporting: HTML reports generated after test runs for visual insights.
@@ -25,6 +30,7 @@ The framework is fully integrated with GitHub Actions, a CI/CD pipeline tool tha
 - Configurable Tests: Easily configure browser, retries, and other settings in playwright.config.ts.
 
 ### Project Structure
+
 Here’s an outline of the project’s structure:
 
 <pre>
@@ -32,6 +38,11 @@ Here’s an outline of the project’s structure:
 │   └── workflows
 │       └── playwright.yml                    # GitHub Actions workflow for running Playwright tests in CI/CD
 │
+├── reports
+│   ├── OverAllEvaluationReport.md             # Overall evaluation report
+│   └── BugReport.xlsx                         # Document containing bugs/issues identified during testing
+│   
+│   
 ├── src
 │   ├── helper
 │   │   ├── ownerAPIHelper.ts                 # Helper file for managing API requests related to owner
@@ -79,6 +90,7 @@ Here’s an outline of the project’s structure:
 </pre>
 
 ### Test Scripts
+
 - Frontend Tests: These tests check the user interface and interactions on the web application. They cover critical functionalities such as navigating the home page, searching and adding new owners or pets.
 
 You can find these tests in the `tests/frontend/ directory`
@@ -88,18 +100,24 @@ You can find these tests in the `tests/frontend/ directory`
 They are located in the `tests/backend/ directory`
 
 ### Installation
+
 #### Prerequisites
+
 Before getting started, make sure the following tools are installed on your machine:
+
 - Node.js: This is essential to run JavaScript and TypeScript code, as well as install the necessary packages.
 - Git: You will need Git for version control to clone the project repository and manage changes.
 - Docker: You will need Docker to run the Spring Petclinic application locally in a containerized environment.
 
 ### Steps to Install
+
 - Clone the repository: Using git command `git clone gitProjectURL`
 - Install dependencies: Run `npm install` in order to install all required packages and dependencies.
 
-### Running Test 
+### Running Test
+
 Once you have the project set up, here’s how you can run it.
+
 - Run docker service: First run the the Spring Petclinic application, run: `docker compose up` and wait until the application is fully up and accessible at http://localhost:8080
 - Run the tests: To execute all the Playwright tests from project, run: `npx playwright test` this will run all the tests defined in the tests/ directory.
 - Running a specific test file: `npx playwright test homePage.spec.ts` this will run all the tests defined in the home.spec.ts file.
@@ -107,9 +125,22 @@ Once you have the project set up, here’s how you can run it.
 - Running a specific test in debug mode: `PWDEBUG=Console npx playwright test -g "Search and view an existing owner with the last name"` this will run the test in debug mode.
 - View HTML Test Report: After running tests, you can view the detailed HTML report with: `npx playwright show-report`
 
+### Accessing Test Reports
+
+After each GitHub Actions workflow run, the Playwright test reports are uploaded as artifacts. Follow the steps below to access them:
+
+- Go to the Actions tab in the GitHub repository.
+- Click on the relevant workflow run.
+- At the bottom of the workflow, under the Artifacts section, you will find:
+  - `backend-tests-report` — Report for backend test results.
+  - `frontend-tests-report` — Report for frontend test results.
+- Click on the desired artifact to download it as a .zip file.
+- Extract the zip and open index.html to view the full test report in your browser.
 
 ### Playwright Configuration
+
 The core configuration of Playwright is defined in the playwright.config.ts file. It includes settings such as:
+
 - Test Timeouts: Specifies how long a test can run before being considered as failed due to timeout.
 - Retries: Configures how many times a test should be retried if it fails.
 - Browser Settings: Defines which browsers the tests will run in, along with other browser-related options like headless mode.
@@ -117,13 +148,17 @@ The core configuration of Playwright is defined in the playwright.config.ts file
 You can modify this file to adjust the test environment according to your needs.
 
 ### CI/ Integration
+
 This project employs GitHub Actions to automatically run tests whenever code is pushed to the repository. The CI configuration is located in the `.github/workflows/` directory. Here’s how the process works:
+
 - Whenever new code is committed to the repository or a pull request is made, the GitHub Actions workflow triggers automatic test execution. This ensures immediate feedback on code quality, preventing potential bugs from being merged into the main codebase.
 - Tests run in a headless browser on the CI server, ensuring the code doesn’t break any functionality.
-- Test results, including screenshots and videos (if any), are stored as artifacts for review.
+- Test results, including screenshots and videos, are stored as artifacts for review.
 
 ### Managing Test Data
+
 All input data used for API-based and frontend test scenarios is maintained in a structured way to ensure reusability and separation of concerns.
+
 - Test data is stored in the `src/testdata/ directory`.
 - The data is loaded into tests via import statements.
 - This approach makes it easy to manage and update payloads without modifying the test logic.
