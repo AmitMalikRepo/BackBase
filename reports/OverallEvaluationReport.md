@@ -13,7 +13,7 @@ This report summarizes the testing done for the Spring Pet Clinic application. B
 ### Frontend (UI) Observations
 
 - Search Limitations: Owner search only works with either the first or last name. Searching with a full name (e.g., "David Smith") yields no results.
-- No Notifications or Messages: There’s no message shown to confirm if an owner or pet was added or edited successfully. Users don’t know if the action worked. 
+- No Notifications or Messages: There’s no message shown to confirm if an owner or pet was added or edited successfully. Users don’t know if the action worked.
 
 ### Why I choose these Test Cases for Automation
 
@@ -28,8 +28,10 @@ This report summarizes the testing done for the Spring Pet Clinic application. B
 - Fix HTTP status codes to align with REST standards (e.g., return 404 for not found).
 - Improve duplication logic or return appropriate messages when creating existing data.
 - Improve search feature to allow multi-word queries.
+- Display a success message after adding or editing data so users know their action worked.
 
 ### Related Documentation
 
 - [README](../README.md)
-- [Manual Test Cases](../SpringPetClinic_Manual_Test_Cases.xlsx)
+- [Manual Test Cases](../ManualTestCases.md)
+- [Bug Report](./BugReport.md)
