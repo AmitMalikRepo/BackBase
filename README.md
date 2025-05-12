@@ -30,50 +30,52 @@ Here’s an outline of the project’s structure:
 <pre>
 ├── .github
 │   └── workflows
-│       └── playwright.yml                  # GitHub Actions workflow for running Playwright tests in CI/CD
+│       └── playwright.yml                    # GitHub Actions workflow for running Playwright tests in CI/CD
 │
 ├── src
 │   ├── helper
-│   │   ├── ownerAPIHelper.ts               # Helper file for managing API requests related to owner
-│   │   ├── petAPIHelper.ts                 # Helper file for managing API requests related to pet
-│   │   ├── veterinariansAPIHelper.ts       # Helper file for managing API requests related to veterinarians
-│   │   └── visitsAPIHelper.ts              # Helper file for managing API requests related to visits
+│   │   ├── ownerAPIHelper.ts                 # Helper file for managing API requests related to owner
+│   │   ├── petAPIHelper.ts                   # Helper file for managing API requests related to pet
+│   │   ├── veterinariansAPIHelper.ts         # Helper file for managing API requests related to veterinarians
+│   │   └── visitsAPIHelper.ts                # Helper file for managing API requests related to visits
 │   │
 │   ├── pages
-│   │   ├── HomePage.ts                     # Page Object Model (POM) for the home page
-│   │   └── OwnerPage.ts                    # Page Object Model (POM) for the owner page
+│   │   ├── HomePage.ts                       # Page Object Model (POM) for the home page
+│   │   └── OwnerPage.ts                      # Page Object Model (POM) for the owner page
 │   │
 │   ├── testdata
 │   │   ├── backend
-│   │   │   ├── owner.json                  # Backend test data for owner-related operations
-│   │   │   ├── pet.json                    # Backend test data for pet-related operations
-│   │   │   ├── vetData.json                # Backend test data for veterinarians-related operations  
-│   │   │   └── visits.json                 # Backend test data for visits
+│   │   │   ├── owner.json                    # Backend test data for owner-related operations
+│   │   │   ├── pet.json                      # Backend test data for pet-related operations
+│   │   │   ├── vetData.json                  # Backend test data for veterinarians-related operations  
+│   │   │   └── visits.json                   # Backend test data for visits
 │   │   │
 │   │   └── frontend
-│   │       ├── owner.json                  # Frontend test data for owner-related operations
-│   │       ├── pet.json                    # Frontend test data for pet-related operations
+│   │       ├── owner.json                    # Frontend test data for owner-related operations
+│   │       ├── pet.json                      # Frontend test data for pet-related operations
 │   │
 │   └── utils
-│       └── testDataUtils.ts                # Utility functions for processing and managing test data across tests
+│       └── testDataUtils.ts                  # Utility functions for processing and managing test data across tests
 │
 ├── tests
 │   ├── backend
-│   │   ├── owner.spec.ts                   # Backend test case for testing owner-related API functionalities
-│   │   ├── pet.spec.ts                     # Backend test case for testing pet-related API functionalities
-│   │   ├── veterinarians.spec.ts           # Backend test case for testing veterinarian-related API functionalities 
-│   │   └── visits.spec.ts                  # Backend test case for testing visit-related API functionalities
+│   │   ├── owner.spec.ts                     # Backend test case for testing owner-related API functionalities
+│   │   ├── pet.spec.ts                       # Backend test case for testing pet-related API functionalities
+│   │   ├── veterinarians.spec.ts             # Backend test case for testing veterinarian-related API functionalities 
+│   │   └── visits.spec.ts                    # Backend test case for testing visit-related API functionalities
 │   │
 │   └── frontend
-│       ├── homePage.spec.ts                # Frontend test case for verifying home page UI elements and functionality
-│       └── owner.spec.ts                   # Frontend test case for testing owner management functionality (UI interactions)
+│       ├── homePage.spec.ts                  # Frontend test case for verifying home page UI elements and functionality
+│       └── owner.spec.ts                     # Frontend test case for testing owner management functionality
+│       └── pet.spec.ts                       # Frontend test case for testing pet functionality
 │
-├── docker-compose.yml                     # Docker Compose file to set up and run Spring Petclinic app
-├── openapi.yml                            # OpenAPI (Swagger) specification for the API used by the Spring Petclinic app
-├── package.json                           # Node.js project configuration file, including dependencies and scripts
-├── playwright.config.ts                   # Configuration file for Playwright tests (test setup, timeouts, browser settings, etc.)
-├── tsconfig.json                          # TypeScript configuration file for compiling TypeScript to JavaScript
-└── README.md                              # Documentation for the project (setup, usage, test instructions, etc.)
+├── docker-compose.yml                        # Docker Compose file to set up and run Spring Petclinic app
+├── openapi.yml                               # OpenAPI (Swagger) specification for the API used by the Spring Petclinic app
+├── package.json                              # Node.js project configuration file, including dependencies and scripts
+├── playwright.config.ts                      # Configuration file for Playwright tests (test setup, timeouts, browser settings, etc.)
+├── tsconfig.json                             # TypeScript configuration file for compiling TypeScript to JavaScript
+└── README.md                                 # Documentation for the project (setup, usage, test instructions, etc.)
+└── SpringPetClinic_Manual_Test_Cases.xlsx    # Manual test cases for validating Spring Pet Clinic application functionality
 </pre>
 
 ### Test Scripts

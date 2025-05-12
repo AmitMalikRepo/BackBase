@@ -3,5 +3,11 @@
         "name": "Mili",
         "birthDate": "2024-10-10",
         "type": "bird"
+    },
+    "updatePetName": {
+        "name": "Mili Updated"
+    },
+    "ownerName": {
+        "name": "Maria Escobito"
     }
 }

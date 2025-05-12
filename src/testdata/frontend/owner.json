@@ -7,25 +7,12 @@
     "telephone": "6085551023"
   },
   "updateOwner": {
-    "firstName": "Test Frontend",
-    "lastName": "Franklin Updated",
+    "name": "Carlos Estaban",
+    "firstName": "Leo Frontend",
+    "lastName": "Das Updated",
     "address": "110 ABC",
     "city": "Amsterdam",
     "telephone": "6085551023"
-  },
-  "inValidOwner": {
-    "firstName": "Test Frontend",
-    "lastName": "",
-    "address": "110 W. Liberty St.",
-    "city": "Madison",
-    "telephone": "6085551023"
-  },
-  "inValidUpdateOwner": {
-    "firstName": "Test Frontend",
-    "lastName": "Franklin Updated",
-    "address": "110 ABC",
-    "city": "Amsterdam",
-    "telephone": "abc"
   },
   "searchOwner": {
     "firstName": "David",

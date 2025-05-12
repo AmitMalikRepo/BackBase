@@ -11,6 +11,24 @@ test.describe("Owner functionality", () => {
     await homePage.goTo();
   });
 
+  test("Add a new owner", async ({ page }) => {
+    const ownerPage = new OwnerPage(page);
+    const uniqueOwner = getUniqueNames();
+
+    await test.step('When I navigate to Add Owner page', async () => {
+      await ownerPage.navigateToAddOwner();
+    });
+
+    await test.step('And I add a new owner', async () => {
+      await ownerPage.fillOwnerForm(uniqueOwner);
+    });
+
+    await test.step('Then I should see the new owner displayed on owners page', async () => {
+      await expect(page.getByText(uniqueOwner.firstName)).toBeVisible();
+      await expect(page.getByText(uniqueOwner.lastName)).toBeVisible();
+    });
+  });
+
   test("Search and view an existing owner by last name", async ({ page }) => {
     const ownerPage = new OwnerPage(page);
 
@@ -39,48 +57,37 @@ test.describe("Owner functionality", () => {
     });
   });
 
-  test("Add a new Pet to an owner", async ({ page }) => {
-    const ownerPage = new OwnerPage(page);
-    const uniquePet = getUniqueNames();
-
-    await test.step('When I navigate to All Owners', async () => {
-      await ownerPage.navigateToAllOwners();
-    });
-
-    await test.step('And I search for an existing owner', async () => {
-      await ownerPage.searchOwner.fill(ownerData.searchOwner.firstName);
-    });
-
-    await test.step('And I click on the owner link', async () => {
-      await ownerPage.clickOnLink(ownerData.searchOwner.firstName);
-    });
-
-    await test.step('And I add a new pet to the owner', async () => {
-      await ownerPage.addNewPet.click();
-      await ownerPage.addPet(uniquePet);
-    });
-
-    await test.step('Then I should see the new pet added to the owner profile', async () => {
-      await expect(page.getByText(uniquePet.name)).toBeAttached();
-      await expect(page.getByText(uniquePet.name)).toBeVisible();
-    });
-  });
-
-  test("Add a new owner", async ({ page }) => {
+  test("Edit owner details", async ({ page }) => {
     const ownerPage = new OwnerPage(page);
     const uniqueOwner = getUniqueNames();
 
-    await test.step('When I navigate to Add Owner page', async () => {
+    await test.step('When I navigate to Add Owner page and add a owner', async () => {
       await ownerPage.navigateToAddOwner();
-    });
-
-    await test.step('And I add a new owner', async () => {
-      await ownerPage.addOwner(uniqueOwner);
+      await ownerPage.fillOwnerForm(uniqueOwner);
     });
 
     await test.step('Then I should see the new owner displayed on owners page', async () => {
       await expect(page.getByText(uniqueOwner.firstName)).toBeVisible();
       await expect(page.getByText(uniqueOwner.lastName)).toBeVisible();
+    });
+
+    await test.step('And I click on the owner link', async () => {
+      await ownerPage.clickOnLink(uniqueOwner.firstName);
+    });
+
+    await test.step('And I click on Edit Owner button', async () => {
+      await ownerPage.editOwner.click();
+    });
+
+    await test.step('And I fill and submit the updated detils of the owner', async () => {
+      await ownerPage.fillOwnerForm(ownerData.updateOwner);
+    });
+
+    await test.step('Then I should see the updated details of owner displayed on the page', async () => {
+      await expect(page.getByText(ownerData.updateOwner.firstName)).toBeVisible();
+      await expect(page.getByText(ownerData.updateOwner.lastName)).toBeVisible();
+      await expect(page.getByText(ownerData.updateOwner.address)).toBeVisible();
+      await expect(page.getByText(ownerData.updateOwner.city)).toBeVisible();
     });
   });
 
@@ -88,15 +95,15 @@ test.describe("Owner functionality", () => {
 
   test("Search for a non-existent owner should show no results", async ({ page }) => {
     const ownerPage = new OwnerPage(page);
-  
+
     await test.step('When I navigate to All Owners', async () => {
       await ownerPage.navigateToAllOwners();
     });
-  
+
     await test.step('And I search using a non-existent last name', async () => {
       await ownerPage.searchOwner.fill("NonExistOwner");
     });
-  
+
     await test.step('Then I should see no owners listed in the results', async () => {
       const ownerRow = page.locator('table tbody tr');
       await expect(ownerRow).toHaveCount(0);

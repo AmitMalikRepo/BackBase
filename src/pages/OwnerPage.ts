@@ -9,10 +9,12 @@ export class OwnerPage extends HomePage {
     ownerCityInput: Locator;
     ownerTelephoneInput: Locator;
     submitBtn: Locator;
+    editOwner: Locator;
     addNewPet: Locator;
     petName: Locator;
     petBirthDate: Locator;
     petType: Locator;
+    editPet: (petName: string) => Locator;
 
     constructor(page: Page) {
         super(page);
@@ -23,13 +25,18 @@ export class OwnerPage extends HomePage {
         this.ownerCityInput = page.locator('input[name="city"]');
         this.ownerTelephoneInput = page.locator('input[name="telephone"]');
         this.submitBtn = page.getByRole('button', { name: 'Submit' });
+        this.editOwner = page.getByRole('link', { name: 'Edit Owner' });
         this.addNewPet = page.getByRole('link', { name: 'Add New Pet' });
         this.petName = page.locator('input[name="name"]');
         this.petBirthDate = page.locator('input[type="date"]');
         this.petType = page.getByRole('combobox');
+        this.editPet = (petName: string) =>
+            page.locator('tr', {
+                has: page.locator('td', { hasText: petName })
+            }).getByRole('link', { name: 'Edit Pet' });
     }
 
-    async addOwner(owner: {
+    async fillOwnerForm(owner: {
         firstName: string;
         lastName: string;
         address: string;
@@ -49,9 +56,14 @@ export class OwnerPage extends HomePage {
         birthDate: string;
         type: string;
     }) {
-        await this.petName.fill(pet.name);
+        await this.petName.pressSequentially(pet.name);
         await this.petBirthDate.fill(pet.birthDate);
         await this.petType.selectOption({ label: pet.type });
+        await this.submitBtn.click();
+    }
+
+    async editPetName(petName: string) {
+        await this.petName.fill(petName);
         await this.submitBtn.click();
     }
 

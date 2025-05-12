@@ -6,12 +6,16 @@ export function getUniqueNames() {
     const uniqueFirstName = `${ownerData.validOwner.firstName}${timestamp}`;
     const uniqueLastName = `${ownerData.validOwner.lastName}${timestamp}`;
     const uniquePetName = `${petData.petDetails.name}${timestamp}`;
+    const updatedUniquePetName = `${petData.updatePetName.name}${timestamp}`;
+
 
     return {
         ...ownerData.validOwner,
         ...petData.petDetails,
+        ...petData.updatePetName,
         firstName: uniqueFirstName,
         lastName: uniqueLastName,
-        name: uniquePetName
+        name: uniquePetName,
+        updatedName: updatedUniquePetName
     };
 }
