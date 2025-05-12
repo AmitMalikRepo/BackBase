@@ -13,6 +13,7 @@ This is a test automation framework built using Playwright and TypeScript. It fo
 7. Accessing Test Reports
 8. Playwright Configuration
 9. CI Integration
+10. Reports and Manual Test Cases  
 
 ### Overview
 
@@ -40,7 +41,7 @@ Here’s an outline of the project’s structure:
 │
 ├── reports
 │   ├── OverAllEvaluationReport.md             # Overall evaluation report
-│   └── BugReport.xlsx                         # Document containing bugs/issues identified during testing
+│   └── BugReport.md                           # Document containing bugs/issues identified during testing
 │   
 │   
 ├── src
@@ -81,12 +82,12 @@ Here’s an outline of the project’s structure:
 │       └── pet.spec.ts                       # Frontend test case for testing pet functionality
 │
 ├── docker-compose.yml                        # Docker Compose file to set up and run Spring Petclinic app
+├── ManualTestCases.md                        # Manual test cases for validating Spring Pet Clinic application functionality
 ├── openapi.yml                               # OpenAPI (Swagger) specification for the API used by the Spring Petclinic app
 ├── package.json                              # Node.js project configuration file, including dependencies and scripts
 ├── playwright.config.ts                      # Configuration file for Playwright tests (test setup, timeouts, browser settings, etc.)
 ├── tsconfig.json                             # TypeScript configuration file for compiling TypeScript to JavaScript
-└── README.md                                 # Documentation for the project (setup, usage, test instructions, etc.)
-└── SpringPetClinic_Manual_Test_Cases.xlsx    # Manual test cases for validating Spring Pet Clinic application functionality
+└── README.md                                 # Documentation for the project (setup, usage, test instructions, etc.)   
 </pre>
 
 ### Test Scripts
@@ -107,7 +108,7 @@ Before getting started, make sure the following tools are installed on your mach
 
 - Node.js: This is essential to run JavaScript and TypeScript code, as well as install the necessary packages.
 - Git: You will need Git for version control to clone the project repository and manage changes.
-- Docker: You will need Docker to run the Spring Petclinic application locally in a containerized environment.
+- Docker: You will need Docker to run the Spring Petclinic application locally.
 
 ### Steps to Install
 
@@ -162,3 +163,20 @@ All input data used for API-based and frontend test scenarios is maintained in a
 - Test data is stored in the `src/testdata/ directory`.
 - The data is loaded into tests via import statements.
 - This approach makes it easy to manage and update payloads without modifying the test logic.
+
+### Reports and Manual Test Cases
+
+This project includes both automated and manual testing documentation:
+
+##### Manual Test Cases
+- All manual test scenarios are written and maintained in markdown format for easy visibility.
+- You can find them here: [Manual Test Cases](./ManualTestCases.md)
+
+##### Reports
+
+Located in the `reports/` directory:
+- [OverAll Evaluation Report](./reports/OverAllEvaluationReport.md)
+Summary of the testing efforts including test selection, key findings, issues observed, and recommendations.
+
+- [Bug Report](./reports/BugReport.md)
+List of defects and inconsistencies found during testing with severity and status.

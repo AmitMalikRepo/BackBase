@@ -56,7 +56,8 @@ export class OwnerPage extends HomePage {
         birthDate: string;
         type: string;
     }) {
-        await this.petName.pressSequentially(pet.name);
+        await this.petName.click();
+        await this.petName.fill(pet.name);
         await this.petBirthDate.fill(pet.birthDate);
         await this.petType.selectOption({ label: pet.type });
         await this.submitBtn.click();
