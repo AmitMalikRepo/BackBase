@@ -114,6 +114,7 @@ Before getting started, make sure the following tools are installed on your mach
 
 - Clone the repository: Using git command `git clone gitProjectURL`
 - Install dependencies: Run `npm install` in order to install all required packages and dependencies.
+- Install playwright browsers:  Run `npx playwright install --with-deps` in order to install playwright browsers.
 
 ### Running Test
 
