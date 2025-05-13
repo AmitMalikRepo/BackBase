@@ -13,10 +13,10 @@ test.describe('Home Page Functionality', () => {
 
         await test.step('Then I should see welcome heading, pet image, and navigation menus', async () => {
 
-            await expect(homePage.getHeading('Welcome to Petclinic')).toBeVisible();
-            await expect(homePage.petsImage).toBeVisible();
-            await expect(homePage.ownersMenu).toBeVisible();
-            await expect(homePage.veterinarians).toBeVisible();
+            await expect(homePage.getHeadingByName('Welcome to Petclinic')).toBeVisible();
+            await expect(homePage.getPetsImage()).toBeVisible();
+            await expect(homePage.getOwnersMenu()).toBeVisible();
+            await expect(homePage.getVeterinarians()).toBeVisible();
         });
     });
 
@@ -29,7 +29,7 @@ test.describe('Home Page Functionality', () => {
 
         await test.step('Then I should be on the Owners page with correct heading', async () => {
             await expect(page).toHaveURL(/.*owners/);
-            await expect(homePage.getHeading('Owners')).toBeVisible();
+            await expect(homePage.getHeadingByName('Owners')).toBeVisible();
         });
 
         await test.step('And I navigate to Add Owner', async () => {
@@ -38,7 +38,7 @@ test.describe('Home Page Functionality', () => {
 
         await test.step('Then I should be on the Add Owner page with correct heading', async () => {
             await expect(page).toHaveURL(/.*owners\/new/);
-            await expect(homePage.getHeading('Owner')).toBeVisible();
+            await expect(homePage.getHeadingByName('Owner')).toBeVisible();
         });
 
         await test.step('And I navigate to Veterinarians', async () => {
@@ -47,7 +47,7 @@ test.describe('Home Page Functionality', () => {
 
         await test.step('Then I should be on the Veterinarians page with correct heading', async () => {
             await expect(page).toHaveURL(/.*vets/);
-            await expect(homePage.getHeading('Veterinarians')).toBeVisible();
+            await expect(homePage.getHeadingByName('Veterinarians')).toBeVisible();
         });
 
         await test.step('And I return to the Home page', async () => {
@@ -56,7 +56,7 @@ test.describe('Home Page Functionality', () => {
 
         await test.step('Then I should be on the Welcome page with correct heading', async () => {
             await expect(page).toHaveURL(/.*welcome/);
-            await expect(homePage.getHeading('Welcome to Petclinic')).toBeVisible();
+            await expect(homePage.getHeadingByName('Welcome to Petclinic')).toBeVisible();
         });
     });
 });

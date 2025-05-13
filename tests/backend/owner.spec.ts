@@ -1,32 +1,32 @@
 import { test, expect } from '@playwright/test';
-import { ownerAPIHelper } from '../../src/helper/ownerAPIHelper';
+import { OwnerAPIHelper } from '../../src/helper/ownerAPIHelper';
 import ownerData from '../../src/testdata/backend/owner.json';
 
 test.describe('Pet Owners API', () => {
   test('Create a new pet owner', async ({ request }) => {
-    const createOwnerResposne = await ownerAPIHelper.createOwner(request, ownerData.validOwner);
-    expect(createOwnerResposne.status()).toBe(201);
+    const createOwnerResposne = await OwnerAPIHelper.createOwner(request, ownerData.owners.valid);
+    expect(createOwnerResposne.status).toBe(201);
   });
 
   test("Get a pet owner by ID", async ({ request }) => {
-    const getOwnerResponse = await ownerAPIHelper.getOwner(request, ownerData.ownerId.id2);
-    expect(getOwnerResponse.status()).toBe(200);
+    const getOwnerResponse = await OwnerAPIHelper.getOwner(request, ownerData.ownerIds[1]);
+    expect(getOwnerResponse.status).toBe(200);
 
-    const ownerResponseBody = await getOwnerResponse.json();
+    const ownerResponseBody = await getOwnerResponse.body;
 
-    expect(ownerResponseBody.firstName).toBe(ownerData.getOwner.firstName);
-    expect(ownerResponseBody.lastName).toBe(ownerData.getOwner.lastName);
+    expect(ownerResponseBody.firstName).toBe(ownerData.owners.retrievalSample.firstName);
+    expect(ownerResponseBody.lastName).toBe(ownerData.owners.retrievalSample.lastName);
   });
 
   test("Update a pet owner details successfully", async ({ request }) => {
-    const updateOwnerResponse = await ownerAPIHelper.updateOwner(request, ownerData.ownerId.id1, ownerData.updateOwner);
-    expect(updateOwnerResponse.status()).toBe(200);
+    const updateOwnerResponse = await OwnerAPIHelper.updateOwner(request, ownerData.ownerIds[0], ownerData.owners.update);
+    expect(updateOwnerResponse.status).toBe(200);
 
-    const ownerResponseBody = await updateOwnerResponse.json();
+    const ownerResponseBody = await updateOwnerResponse.body;
 
-    expect(ownerResponseBody.lastName).toBe(ownerData.updateOwner.lastName);
-    expect(ownerResponseBody.city).toBe(ownerData.updateOwner.city);
-    expect(ownerResponseBody.address).toBe(ownerData.updateOwner.address);
+    expect(ownerResponseBody.lastName).toBe(ownerData.owners.update.lastName);
+    expect(ownerResponseBody.city).toBe(ownerData.owners.update.city);
+    expect(ownerResponseBody.address).toBe(ownerData.owners.update.address);
   });
 });
 
@@ -34,10 +34,10 @@ test.describe('Pet Owners API', () => {
 
 test.describe('Pet Owners Negative API tests', () => {
   test('Fail to create a pet owner with missing required field (empty last name)', async ({ request }) => {
-    const createOwnerResposne = await ownerAPIHelper.createOwner(request, ownerData.inValidOwner);
-    expect(createOwnerResposne.status()).toBe(400);
+    const createOwnerResposne = await OwnerAPIHelper.createOwner(request, ownerData.owners.invalid.missingLastName);
+    expect(createOwnerResposne.status).toBe(400);
 
-    const ownerResponseBody = await createOwnerResposne.json();
+    const ownerResponseBody = await createOwnerResposne.body;
 
     expect(ownerResponseBody.error).toBe('Bad Request');
     expect(ownerResponseBody.message).toContain('Validation failed');
@@ -46,20 +46,20 @@ test.describe('Pet Owners Negative API tests', () => {
 
   test('Fail to get a non-existent pet owner by ID', async ({ request }) => {
     const nonExistentOwnerId = 9999;
-    const getOwnerResponse = await ownerAPIHelper.getOwner(request, nonExistentOwnerId);
-    expect(getOwnerResponse.status()).toBe(500);
+    const getOwnerResponse = await OwnerAPIHelper.getOwner(request, nonExistentOwnerId);
+    expect(getOwnerResponse.status).toBe(500);
 
-    const responseBody = await getOwnerResponse.json();
+    const responseBody = await getOwnerResponse.body;
 
     expect(responseBody.error).toBe('Internal Server Error');
     expect(responseBody.message).toBe('No value present');
   });
 
   test("Fail to update owner when telephone is non-numeric", async ({ request }) => {
-    const updateOwnerResponse = await ownerAPIHelper.updateOwner(request, ownerData.ownerId.id1, ownerData.inValidUpdateOwner);
-    expect(updateOwnerResponse.status()).toBe(400);
+    const updateOwnerResponse = await OwnerAPIHelper.updateOwner(request, ownerData.ownerIds[0], ownerData.owners.invalid.invalidTelephone);
+    expect(updateOwnerResponse.status).toBe(400);
 
-    const ownerResponseBody = await updateOwnerResponse.json();
+    const ownerResponseBody = await updateOwnerResponse.body;
 
     expect(ownerResponseBody.error).toBe('Bad Request');
     expect(ownerResponseBody.message).toContain("Validation failed");

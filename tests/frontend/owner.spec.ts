@@ -21,6 +21,7 @@ test.describe("Owner functionality", () => {
 
     await test.step('And I add a new owner', async () => {
       await ownerPage.fillOwnerForm(uniqueOwner);
+      await ownerPage.submitForm();
     });
 
     await test.step('Then I should see the new owner displayed on owners page', async () => {
@@ -37,7 +38,7 @@ test.describe("Owner functionality", () => {
     });
 
     await test.step('And I search for an existing owner', async () => {
-      await ownerPage.searchOwner.fill(ownerData.searchOwner.lastName);
+      await ownerPage.searchOwner(ownerData.searchOwner.lastName);
     });
 
     await test.step('Then I should see the owner in the search results', async () => {
@@ -64,6 +65,7 @@ test.describe("Owner functionality", () => {
     await test.step('When I navigate to Add Owner page and add a owner', async () => {
       await ownerPage.navigateToAddOwner();
       await ownerPage.fillOwnerForm(uniqueOwner);
+      await ownerPage.submitForm();
     });
 
     await test.step('Then I should see the new owner displayed on owners page', async () => {
@@ -76,11 +78,12 @@ test.describe("Owner functionality", () => {
     });
 
     await test.step('And I click on Edit Owner button', async () => {
-      await ownerPage.editOwner.click();
+      await ownerPage.clickEditOwner();
     });
 
     await test.step('And I fill and submit the updated detils of the owner', async () => {
       await ownerPage.fillOwnerForm(ownerData.updateOwner);
+      await ownerPage.submitForm();
     });
 
     await test.step('Then I should see the updated details of owner displayed on the page', async () => {
@@ -101,7 +104,7 @@ test.describe("Owner functionality", () => {
     });
 
     await test.step('And I search using a non-existent last name', async () => {
-      await ownerPage.searchOwner.fill("NonExistOwner");
+      await ownerPage.searchOwner("NonExistOwner");
     });
 
     await test.step('Then I should see no owners listed in the results', async () => {

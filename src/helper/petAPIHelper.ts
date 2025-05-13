@@ -1,16 +1,38 @@
 import { APIRequestContext } from '@playwright/test';
 
-export class petAPIHelper {
+export interface Pet {
+    name: string;
+    birthDate: string;
+    typeId?: number;
+    type?: string;
+}
 
-    static async addPet(request: APIRequestContext, ownerId: number, petData: object) {
-        return await request.post(`owners/${ownerId}/pets`, { data: petData });
+export class PetAPIHelper {
+
+    static async addPet(request: APIRequestContext, ownerId: number, petData: Pet) {
+        const response = await request.post(`owners/${ownerId}/pets`, { data: petData });
+        const body = await response.json().catch(() => ({}));
+        return {
+            status: response.status(),
+            body,
+        };
     }
 
     static async getPet(request: APIRequestContext, ownerId: number, petId: number) {
-        return await request.get(`owners/${ownerId}/pets/${petId}`);
+        const response = await request.get(`owners/${ownerId}/pets/${petId}`);
+        const body = await response.json().catch(() => ({}));
+        return {
+            status: response.status(),
+            body,
+        };
     }
 
-    static async updatePetDetails(request: APIRequestContext, ownerId: number, petId: number, petData: object) {
-        return await request.put(`owners/${ownerId}/pets/${petId}`, { data: petData });
+    static async updatePet(request: APIRequestContext, ownerId: number, petId: number, petData: Pet) {
+        const response = await request.put(`owners/${ownerId}/pets/${petId}`, { data: petData });
+        const body = await response.json().catch(() => ({}));
+        return {
+            status: response.status(),
+            body,
+        };
     }
 }

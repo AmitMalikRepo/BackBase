@@ -21,7 +21,7 @@ test.describe("Pet functionality", () => {
         });
 
         await test.step('And I search for an existing owner', async () => {
-            await ownerPage.searchOwner.fill(ownerData.searchOwner.firstName);
+            await ownerPage.searchOwner(ownerData.searchOwner.firstName);
         });
 
         await test.step('And I click on the owner name', async () => {
@@ -29,7 +29,7 @@ test.describe("Pet functionality", () => {
         });
 
         await test.step('And I click on add new pet button', async () => {
-            await ownerPage.addNewPet.click();
+            await ownerPage.clickAddNewPet();
         });
 
         await test.step('And I add a new pet to the owner', async () => {
@@ -54,16 +54,16 @@ test.describe("Pet functionality", () => {
         });
 
         await test.step('And I add a new pet to the owner', async () => {
-            await ownerPage.addNewPet.click();
+            await ownerPage.clickAddNewPet();
             await ownerPage.addPet(uniquePet);
         });
 
         await test.step('And I click on Edit pet link', async () => {
-            ownerPage.editPet(uniquePet.name).click();
+            ownerPage.clickEditPet(uniquePet.name);
         });
 
         await test.step('And I update the pet name', async () => {
-            ownerPage.editPetName(uniquePet.updatedName);
+            ownerPage.updatePetName(uniquePet.updatedName);
         });
 
         await test.step('Then I should see the updated pet name displayed on the page', async () => {
